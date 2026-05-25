@@ -66,6 +66,18 @@ Vec2 handleMovement(Vec2 playerInput, char **grid, int height, int width) {
         playerPos.y = playerY;
         return playerPos;
     }
+    moveValidity = checkIfInvalid(playerPos.x + gravity.x, playerPos.y + gravity.y, height, width);
+    if (moveValidity == 1) {
+        if (grid[playerPos.y][playerPos.x] == '#') {
+            std::cout << "Invalid move, turn has been skipped" << std::endl;
+            playerPos.x = playerX;
+            playerPos.y = playerY;
+            return playerPos;
+        }
+        if (grid[playerPos.y][playerPos.x] == '.' || grid[playerPos.y][playerPos.x] == 'E') {
+            return playerPos;
+        }
+    }
     if (grid[playerPos.y][playerPos.x] == '#' && grid[playerPos.y + gravity.y][playerPos.x + gravity.x] == '#') {
         std::cout << "Invalid move, turn has been skipped" << std::endl;
         playerPos.x = playerX;
