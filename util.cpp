@@ -4,7 +4,7 @@
 class Vec2;
 
 Vec2 getPlayerInput() {
-    std::cout << "Press Ctrl + C to quit!";
+    std::cout << "Press Ctrl + C to quit!" << std::endl;
     std::cout << "Enter move ((U)p, (D)own, (L)eft, (R)ight) -> ";
     char x; // U, D, L, R
     std::cin >> x;
@@ -22,7 +22,7 @@ Vec2 getPlayerInput() {
         move.x = 1;
     }
     else {
-        std::cout << "Invalid move, turn has been skipped" << std::endl;
+        std::cout << "Invalid move, turn has been ended" << std::endl;
     }
     return move;
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#pragma once
 
 class Vec2 {
     public:
