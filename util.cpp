@@ -26,6 +26,15 @@ Vec2 getPlayerInput() {
     return move;
 }
 
+void printBoard(char **grid, int height, int width) {
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            std::cout << grid[y][x] << ' ';
+        }
+        std::cout << std::endl;
+    }
+}
+
 // 0 if valid
 // 1 if not
 int checkIfInvalid(int x, int y, int height, int width) {
@@ -90,4 +99,65 @@ Vec2 handleMovement(Vec2 playerInput, char **grid, int height, int width) {
     playerPos.x += gravity.x;
     playerPos.y += gravity.y;
     return playerPos;
+}
+
+void runGame(char **grid, int height, int width) {
+    while (1) {
+        printBoard(grid, height, width);
+        Vec2 player_move = getPlayerInput();
+        Vec2 final_move = handleMovement(player_move, grid, height, width);
+        int y;
+        int x;
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                if (grid[j][i] == 'S') {
+                    y = j;
+                    x = i;
+                }
+            }
+        }
+        y += final_move.y;
+        x += final_move.x;
+        if (grid[y][x] == 'E') {
+            std::cout << "Good job! You won!";
+            break;
+        }
+        grid[y - final_move.y][x - final_move.x] = '.';
+        grid[y][x] = 'S';
+    }
+}
+
+int main() { // for testing
+    char **grid = new char*[10];
+    for (int i = 0; i < 10; i++) {
+        grid[i] = new char[10];
+    }
+    for (int y = 0; y < 10; y++) {
+        for (int x = 0; x < 10; x++) {
+            grid[y][x] = '.';
+        }
+    }
+    // S . . . . . . . . . 
+    // # # # # . # # # # # 
+    // . . . . . . . . . . 
+    // . . . . . . . . . . 
+    // . # # # # # # # # # 
+    // . . . . . . . . . . 
+    // . . . . . . . . . . 
+    // . E . . . . . . . . 
+    // . . . . . . . . . . 
+    // . . . . . . . . . . 
+    for (int i = 0; i < 10; i++) {
+        grid[1][i] = '#';
+        grid[4][i] = '#';
+    }
+    grid[1][4] = '.';
+    grid[4][0] = '.';
+    grid[0][0] = 'S';
+    grid[7][1] = 'E';
+    runGame(grid, 10, 10);
+    for (int i = 0; i < 10; i++) {
+        delete[] grid[i];
+    }
+    delete[] grid;
 }
