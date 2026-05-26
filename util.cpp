@@ -4,6 +4,7 @@
 class Vec2;
 
 Vec2 getPlayerInput() {
+    std::cout << "Press Ctrl + C to quit!";
     std::cout << "Enter move ((U)p, (D)own, (L)eft, (R)ight) -> ";
     char x; // U, D, L, R
     std::cin >> x;
@@ -125,39 +126,4 @@ void runGame(char **grid, int height, int width) {
         grid[y - final_move.y][x - final_move.x] = '.';
         grid[y][x] = 'S';
     }
-}
-
-int main() { // for testing
-    char **grid = new char*[10];
-    for (int i = 0; i < 10; i++) {
-        grid[i] = new char[10];
-    }
-    for (int y = 0; y < 10; y++) {
-        for (int x = 0; x < 10; x++) {
-            grid[y][x] = '.';
-        }
-    }
-    // S . . . . . . . . . 
-    // # # # # . # # # # # 
-    // . . . . . . . . . . 
-    // . . . . . . . . . . 
-    // . # # # # # # # # # 
-    // . . . . . . . . . . 
-    // . . . . . . . . . . 
-    // . . . . . . . . . . 
-    // . . . . . . . . . . 
-    // . . . . . . . . . E 
-    for (int i = 0; i < 10; i++) {
-        grid[1][i] = '#';
-        grid[4][i] = '#';
-    }
-    grid[1][4] = '.';
-    grid[4][0] = '.';
-    grid[0][0] = 'S';
-    grid[7][1] = 'E';
-    runGame(grid, 10, 10);
-    for (int i = 0; i < 10; i++) {
-        delete[] grid[i];
-    }
-    delete[] grid;
 }
